@@ -21,5 +21,15 @@ export default {
     return createUser;
   },
 
+  async findByID(id: number) {
+    const findedID = await prisma.usuario.findUnique({
+      where: {
+        id: id
+      },
+    });
+
+    return findedID;
+  },
+
  
 };
