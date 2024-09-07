@@ -19,5 +19,14 @@ export default {
     return createFilme;
   },
 
+  async findByID(id: number) {
+    const findedID = await prisma.filmes.findUnique({
+      where: {
+        id: id
+      },
+    });
+
+    return findedID;
+  },
  
 };

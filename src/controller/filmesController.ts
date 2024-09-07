@@ -24,4 +24,20 @@ export default {
       return handleException(e, res);
     }
   },
+
+  async findByID(req: Request, res: Response) {
+    try {
+      const { id } = req.body; // Extraia o id do corpo da requisição
+      if (typeof id !== 'number') {
+        return res.status(400).json({ error: 'ID deve ser um número' });
+      }
+      
+      const findID = await repository.findByID(id);
+      
+      return res.status(200).json(findID);
+      
+    } catch (e) {
+      return handleException(e, res);
+    }
+  },
 };
