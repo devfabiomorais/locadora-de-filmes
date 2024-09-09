@@ -40,4 +40,51 @@ export default {
       return handleException(e, res);
     }
   },
+
+  async changeStatus(req: Request, res: Response) {
+    try {
+      const { id } = req.body; // Extraia o id do corpo da requisição
+      if (typeof id !== 'number') {
+        return res.status(400).json({ error: 'ID deve ser um número' });
+      }
+
+      const filme = await repository.findByID(Number(id));
+
+      if (!filme) throw new ModuleError("Filme não encontrado", 404);
+
+      const filmeChangeStatus = await repository.changeStatus(
+        Number(id),
+        !filme.alugado,
+      );
+
+      res.status(200).json(filmeChangeStatus);
+    } catch (e) {
+      return handleException(e, res);
+    }
+  },
+
+  async findByDescription(req: Request, res: Response) {
+    try {
+      const { description } = req.params;
+            
+      const findedDescription = await repository.findByDescription(description);
+      
+      return res.status(200).json(findedDescription);
+      
+    } catch (e) {
+      return handleException(e, res);
+    }
+  },
+
+  async encontrarAlugados(req: Request, res: Response) {
+    try {
+      const alugadosEncontrados = await repository.encontrarAlugados();
+      
+      return res.status(200).json(alugadosEncontrados);
+      
+    } catch (e) {
+      return handleException(e, res);
+    }
+  },
+
 };
