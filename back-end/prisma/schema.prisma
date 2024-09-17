@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String
+  cpf       String   @unique
+  status    Boolean
+  first     Boolean
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+  endereco Endereco[]
+  @@map("usuarios")
+}
+
+model Endereco {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  rua       String
+  bairro    String
+  numero    String
+  cidade    String
+  estado    String
+  cep       String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+  usuario   Usuario  @relation(fields: [userId], references: [id])
+  @@map("enderecos")
+}
+
+model Filmes {
+  id        Int      @id @default(autoincrement())
+  nome      String
+  generoId  Int      @map("genero_id")
+  duracao   String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+  genero    Generos  @relation(fields: [generoId], references: [id])
+  @@map("filmes")
+}
+
+model Generos {
+  id        Int      @id @default(autoincrement())
+  genero    String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+  filmes    Filmes[]
+  @@map("generos")
+}
+
+model Series {
+  id        Int      @id @default(autoincrement())
+  genero    String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+  @@map("series")
+}

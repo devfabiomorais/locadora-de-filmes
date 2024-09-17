@@ -29,12 +29,12 @@
     "eslint-plugin-prettier": "^5.2.1",
     "nodemon": "^3.1.4",
     "prettier": "^3.3.3",
-    "prisma": "^5.19.1",
+    "prisma": "^5.19.0",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.5.4"
   },
   "dependencies": {
-    "@prisma/client": "^5.19.1",
+    "@prisma/client": "^5.19.0",
     "cors": "^2.8.5",
     "express": "^4.19.2"
   }
