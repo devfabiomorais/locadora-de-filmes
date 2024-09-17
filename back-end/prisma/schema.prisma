@@ -43,6 +43,7 @@ model Endereco {
 
 model Filmes {
   id        Int      @id @default(autoincrement())
+  alugado   Boolean  @default(false)
   nome      String
   generoId  Int      @map("genero_id")
   duracao   String
